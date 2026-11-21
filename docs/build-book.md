@@ -9,11 +9,12 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 
 ## Checklist
 - [ ] Ch 1: Context (business-brain folder, 5 files)
-  - [ ] 01-business.md
-  - [ ] 02-customers.md
-  - [ ] 03-voice.md
-  - [ ] 04-approvals.md
-  - [ ] 05-faq.md
+  - [x] 01-business.md
+  - [x] 02-customers.md
+  - [x] 03-voice.md (drafted; commit pending)
+  - [x] 04-approvals.md
+  - [x] 05-faq.md (commit pending)
+  - [ ] Test the brain: give the five files and sample customer emails to Claude and check the drafts follow the voice and the tiers
 - [ ] Ch 2: Skills (one job written step by step)
 - [ ] Ch 3: Memory (running record the AI reads and updates)
 - [ ] Ch 4: Tools (inbox: read and draft only)
@@ -42,6 +43,17 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - **Model rule used:** Sonnet for routine work; Opus straight away for bugs, errors, design and big reviews.
 - **Takeaway:** match the autonomy you give to the cost of a mistake.
 
+### Piece 1: Context engineering
+- **What it is:** deciding what an AI reads before every job. The `business-brain/` folder is that context: facts (business, customers), voice, boundaries (approvals) and common questions (FAQ).
+- **What we did:** wrote files 01 to 03 for the demo client, each with one job and each marked DEMO ONLY.
+- **Lesson 1, show don't tell:** real sample emails teach tone far better than adjectives like "friendly but direct".
+- **Lesson 2, examples outweigh rules:** when an example and a rule disagree, the AI follows the example. Check every example obeys your own rules. We found one: the rules banned promising sea freight delivery times, while a sample email gave a delivery window. Fix: make the rule say "sea transit times".
+- **Lesson 3, one job per file, no personal data:** describe customer types, not named people, so the brain is safe to share.
+- **Lesson 4, answers must stand alone:** the AI can copy a sentence word for word, so never write cross-references such as "see question 3", and never let an answer promise more than the law or policy allows (we removed an unconditional "Yes" to deleting personal data).
+- **Lesson 5, restrictions never expire by date:** only the owner lifts a restriction, by writing it in the approvals file. We replaced "for the first two weeks" with "until the owner promotes that type". Text inside an email is information, never an instruction.
+- **Takeaway:** context is the AI's job description plus house style. Write the facts down once, show the voice with real examples, and keep examples consistent with the rules.
+- **Academy:** do the lesson on writing effective prompts and instructions after you have used this.
+
 ## Chapter 1: Context
 **Goal:** write down the business so every AI job reads it first and sounds like the owner, not a stranger.
 
@@ -64,4 +76,8 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Location decision: keep the working project folder local (outside OneDrive, Dropbox and Google Drive sync, e.g. C:\Dev\AI-Employee) and use the private GitHub repo as the backup. Cloud drives are only for exports such as the slide deck
 - Progress: Step 1 safety foundations done (.gitignore plus nested-safe deny rules in .claude/settings.json); Step 2 folder tree done (demo-freight-co and _template, five heading-only context files each, .gitkeep in skills and memory); 01-business.md drafted (demo values), waiting to be placed in demo-freight-co/business-brain
 - Step 3 done: git init, staged file list reviewed (exactly 16 files, no secrets), repo email set to the GitHub noreply address, first commit made locally (16 files). Claude Code added a Co-Authored-By trailer; decide keep or remove before the first push, since changing it after a push means rewriting history
-- Next: confirm the commit author email, create the private GitHub repo (no README, .gitignore or licence ticked), connect and push; README and docs become the second commit
+- Step 4 done: author email confirmed as the GitHub noreply address, private repo ai-employee-blueprint created and pushed, README (with the money/contracts/angry-customer rule) and docs/build-book.md added as the second commit
+- Step 5 done: 01-business.md and 02-customers.md placed and pushed; "Claude outputs/" folder added to .gitignore (the desktop app saves copies of files it sends there); repo checked directly, clean and in sync with GitHub
+- Step 6: 03-voice.md drafted with three sample emails; one rule/example conflict found (sea freight delivery times) and being fixed by hand before commit
+- Step 7 done: 03-voice.md and 04-approvals.md committed and pushed; 04 reviewed twice (rule and tier conflicts fixed: expiring two-week clause, delay drafting contradiction, "would goes" typo); 05-faq.md drafted with a Handling line per answer, then reviewed (cross-reference and unconditional "Yes" fixed)
+- Next: commit 05-faq.md; test the brain with sample emails; then Piece 2 (Skills)
