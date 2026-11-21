@@ -19,7 +19,7 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - [x] Ch 2: Skills (one job written step by step: draft-quote-reply)
 - [x] Ch 3: Memory (rules file, update-memory skill, invented sample records, quote skill linked, tested on four emails)
 - [x] Ch 4: Tools (v1 shorter route: sample inbox folder in, board folder out, no send tool; live Gmail via n8n deferred to the two-week run)
-- [ ] Ch 5: Schedules (that one job on a daily schedule)
+- [x] Ch 5: Schedules (process-inbox on a weekday schedule, with unattended-run rules and a run log; production version is n8n on a VPS)
 - [ ] Ch 6: Board (what the AI did, what awaits approval, what got stuck)
 - [ ] Two-week run, fix what breaks, add the next job
 - [ ] GitHub: private repo first, then mark as a template repository and make public once checked (no secrets, no real customer data)
@@ -93,6 +93,18 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - **Takeaway:** the safest tool is the one that can't do harm. Give the AI the smallest set of actions that does the job, keep live data out of git, and prove containment by checking what changed.
 - **Academy:** do the lesson on tool use and permissions for agents.
 
+### Piece 5: Schedules
+- **What it is:** turning "I run it when I remember" into "it runs at 07:46 every working day, before the business opens". A schedule multiplies mistakes, because nobody is watching.
+- **What we did:** added a "When run on a schedule" section to the `process-inbox` skill, then created a scheduled Claude task (Monday to Friday, 07:46 UK time) that reads the skill fresh each run.
+- **Lesson 1, write the unattended rules first:** never ask a question (flag "Needs owner" and carry on), use only the listed actions, stop on failure and never retry by another route.
+- **Lesson 2, a run log makes silence meaningful:** one line per run, even when there is nothing to process ("no new emails"). A missing line for a working day means the run did not happen. The log is append-only.
+- **Lesson 3, prove it with a test fire:** the first manual run correctly skipped all four already-processed emails, wrote the log line and changed nothing else. Check containment by looking at file timestamps and git status, not by trusting the summary.
+- **Lesson 4, a scheduled session is a general session:** it may have other connectors attached (Drive, Docs, Shopify) that the prompt tells it not to use, but nothing physically blocks them. That is an instruction, not a missing tool, which is weaker than Piece 4's "no send tool" design. Acceptable for invented demo data. Not acceptable for a real client.
+- **Lesson 5, unattended means automatic approval:** with nobody to approve each write, the task runs in automatic mode. The limits are the prompt, the skill and the folder.
+- **Lesson 6, the demo and production differ:** option A (scheduled Claude task) needs the desktop app open and the computer on for local files. If the computer is off, the run does not happen and no log line appears. Production uses option B: an n8n schedule trigger on an always-on server, reading and drafting in the client's inbox with no send node.
+- **Takeaway:** write the rules for an unattended run before you schedule it, make every run leave a trace, and test with one manual fire before you trust the clock.
+- **Academy:** do the lesson on running agents autonomously and monitoring them.
+
 ## Chapter 1: Context
 **Goal:** write down the business so every AI job reads it first and sounds like the owner, not a stranger.
 
@@ -129,4 +141,6 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Piece 3 test: four emails (repeat customer, new customer, injection plus dangerous goods, angry repeat customer). Memory improved the drafts (dock and tail-lift question, open promise noted for the owner). Three gaps fixed in update-memory and committed
 - Step 11 done: Piece 4 (Tools), shorter route. Added inbox/ and board/ (gitignored), inbox-example/ with four invented emails, and the process-inbox skill. Tested on four emails; findings fixed (fragile detail in the brain, Email domain line, Notes for owner, state-only-what-memory-says). Re-run in a fresh session confirmed the fixes
 - Decision: v1 uses the shorter route (sample emails, no live inbox). The live n8n and Gmail connection comes at the two-week run, with read and draft only
-- Next: Piece 5 (Schedules): run the process-inbox job on a daily schedule
+- Step 12 done: Piece 5 (Schedules), option A. Added "When run on a schedule" rules to process-inbox, created the scheduled task (Mon to Fri 07:46 UK), test-fired it: one "no new emails" run log line, nothing else changed. Open items: the task has connectors attached that cannot be removed per task, and it runs in automatic approval mode. Both accepted for demo data only
+- Decision: production schedule is option B (n8n on the VPS), built at the two-week run
+- Next: Piece 6 (Board): one place showing what the AI did, what awaits approval, what got stuck, and when it last ran

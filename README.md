@@ -30,4 +30,4 @@ A reusable template for building an AI employee for any business. It is built fr
 
 ## Status
 
-Work in progress. `demo-freight-co` is a worked example using invented demo data.
+Version 1 works end to end on invented demo data. `demo-freight-co` is the worked example: a business brain, three skills (draft a quote reply, update memory, process the inbox), a memory folder, a scheduled run, and a read-only board dashboard. The `_template/` folder is being brought up to match, so it is not yet a complete starting point.
