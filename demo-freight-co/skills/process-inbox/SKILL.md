@@ -67,9 +67,24 @@ Reply with one short list: each email, its type, its tier, and
 whether it needs the owner. Put urgent items first. Do not repeat
 the drafts.
 
+## When run on a schedule
+Nobody is watching a scheduled run, so these rules apply as well:
+- Never ask a question. If you are unsure about anything, flag
+  "Needs owner" and carry on.
+- Use only the actions in "What you may touch". Use no other
+  tools, apps or connections, even if they are available.
+- Always add one line to board/run-log.md, even when there is
+  nothing to process:
+  `- 24 Nov 2026 07:46: 4 emails, 2 drafts, 2 need the owner, 0 errors`
+  or `- 24 Nov 2026 07:46: no new emails`
+- If something goes wrong, stop, write the problem to the run log
+  and do nothing else. Never retry by another route.
+- Never edit or remove earlier run log lines.
+
 ## Check before finishing
 - [ ] Nothing written outside board/ and memory/
 - [ ] Every board entry says DRAFT, NOT SENT
 - [ ] No price, no sea transit time, no delivery guarantee
 - [ ] Every Tier 3 email has no draft
 - [ ] Memory updated, one line per event, nothing deleted
+- [ ] One line added to board/run-log.md
