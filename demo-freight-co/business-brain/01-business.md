@@ -28,6 +28,8 @@ Asia. We are not a carrier: we arrange and manage the move.
   for new customers.
 
 ## When we're open and how fast we reply
+- If an email arrives outside opening hours, the working day
+  starts when we next open.
 - Open Monday to Friday, 8:30am to 5:30pm UK time.
 - Quote requests: we reply the same working day.
 - Everything else: we reply within one working day.
@@ -36,6 +38,7 @@ Asia. We are not a carrier: we arrange and manage the move.
   working day if the email arrives after 3pm.
 
 ## What we don't do
-- Dangerous goods, live animals, or anything needing a licence
-  we don't hold
+- Dangerous goods (for example batteries, aerosols, paints,
+  fuel, gas cylinders, chemicals), live animals, or anything
+  needing a licence we don't hold
 - Firm delivery-time guarantees on sea freight
