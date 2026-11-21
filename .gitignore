@@ -10,6 +10,12 @@
 **/memory/*
 !**/memory/.gitkeep
 
+# Inbox and board: live emails and drafts never go in git
+**/inbox/*
+!**/inbox/.gitkeep
+**/board/*
+!**/board/.gitkeep
+
 # Claude Code local settings
 .claude/settings.local.json
 
