@@ -18,7 +18,7 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
   - [x] Test the brain: give the five files and sample customer emails to Claude and check the drafts follow the voice and the tiers (found two gaps, no opening hours or response times and an undefined "stated time", both fixed)
 - [x] Ch 2: Skills (one job written step by step: draft-quote-reply)
 - [x] Ch 3: Memory (rules file, update-memory skill, invented sample records, quote skill linked, tested on four emails)
-- [ ] Ch 4: Tools (inbox: read and draft only)
+- [x] Ch 4: Tools (v1 shorter route: sample inbox folder in, board folder out, no send tool; live Gmail via n8n deferred to the two-week run)
 - [ ] Ch 5: Schedules (that one job on a daily schedule)
 - [ ] Ch 6: Board (what the AI did, what awaits approval, what got stuck)
 - [ ] Two-week run, fix what breaks, add the next job
@@ -80,6 +80,19 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - **Takeaway:** memory makes the AI consistent across emails. Keep it minimal, factual, append-only and out of git, and let the owner remain the only one who changes the rules.
 - **Academy:** do the lesson on memory and context management for agents.
 
+### Piece 4: Tools
+- **What it is:** a tool is anything the AI can do in the outside world. Reading a file, writing a file and sending an email are three tools with three different risks. Each one is granted separately, at the lowest level that works.
+- **What we did:** the v1 "inbox" is a folder of sample emails (`inbox/`) and the "board" is a folder of drafts (`board/`). A `process-inbox` skill reads each email, routes it to the right skill and writes one board entry per email.
+- **Lesson 1, no send tool means no send risk:** the AI can read four places, write two, and has no way to send, delete or use the network. That is stronger than a rule saying "don't send". In the live version, n8n gets the same shape: read mail, create a draft, no send node.
+- **Lesson 2, live data stays out of git:** `inbox/` and `board/` are gitignored, verified with `git check-ignore`. Only invented examples (`inbox-example/`) are committed.
+- **Lesson 3, an orchestrator skill routes, it doesn't draft:** `process-inbox` decides which skill handles each email and collects the results. Anything without a skill yet goes to "Needs owner", which is safe by default. New email type means a new skill plus one routing line.
+- **Lesson 4, skills outside `.claude/skills/` need explicit paths:** Claude Code only auto-discovers skills in `.claude/skills/`. We keep skills per client, so the prompt names the paths.
+- **Lesson 5, start a fresh session after editing a skill:** the first re-run reused the old skill from the session's memory, so none of the fixes appeared. A skill changes behaviour only when it is read again. Check results against the file on disk, not against what you expect.
+- **Lesson 6, a four-email test finds layout gaps:** the run showed an open promise not reaching the owner, a detail ("fragile") asked for in drafts but missing from the brain, a summary that inferred "no quote sent", and customer matching that depended on luck. Fixes: a "Notes for owner" line, the detail added to the brain, a "state only what memory says" rule, and an Email domain line in each record.
+- **Lesson 7, outputs vary between runs:** a draft asked about the dock and tail-lift in one run and not in the next. In a real build, run the test set more than once before trusting a skill.
+- **Takeaway:** the safest tool is the one that can't do harm. Give the AI the smallest set of actions that does the job, keep live data out of git, and prove containment by checking what changed.
+- **Academy:** do the lesson on tool use and permissions for agents.
+
 ## Chapter 1: Context
 **Goal:** write down the business so every AI job reads it first and sounds like the owner, not a stranger.
 
@@ -114,4 +127,6 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Step 10 started: Piece 3 (Memory). Design: policy lives in business-brain/06-memory-rules.md, the procedure will live in a skill, live memory/ stays gitignored, and a committed memory-example/ holds invented sample records
 - Step 10 done: Piece 3 (Memory) complete. 06-memory-rules.md (12-month review period, six extra "may store" items), update-memory skill, memory-example/ with invented records, quote skill linked to memory. Decision: the AI writes memory itself in v1 (Tier 1, append-only, weekly skim); switch to approve-first if real client data is involved or errors appear
 - Piece 3 test: four emails (repeat customer, new customer, injection plus dangerous goods, angry repeat customer). Memory improved the drafts (dock and tail-lift question, open promise noted for the owner). Three gaps fixed in update-memory and committed
-- Next: Piece 4 (Tools): inbox access, read and draft only, no send step
+- Step 11 done: Piece 4 (Tools), shorter route. Added inbox/ and board/ (gitignored), inbox-example/ with four invented emails, and the process-inbox skill. Tested on four emails; findings fixed (fragile detail in the brain, Email domain line, Notes for owner, state-only-what-memory-says). Re-run in a fresh session confirmed the fixes
+- Decision: v1 uses the shorter route (sample emails, no live inbox). The live n8n and Gmail connection comes at the two-week run, with read and draft only
+- Next: Piece 5 (Schedules): run the process-inbox job on a daily schedule
