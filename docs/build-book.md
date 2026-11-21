@@ -8,15 +8,16 @@ Build order: context, then one skill, then one job, then put that one job on a s
 Principle throughout: UK GDPR by default (no personal data in the business brain, no pre-ticked consent boxes, least access for every tool).
 
 ## Checklist
-- [ ] Ch 1: Context (business-brain folder, 5 files)
+- [x] Ch 1: Context (business-brain folder, 6 files including memory rules)
   - [x] 01-business.md
   - [x] 02-customers.md
-  - [x] 03-voice.md (drafted; commit pending)
+  - [x] 03-voice.md
   - [x] 04-approvals.md
-  - [x] 05-faq.md (commit pending)
-  - [ ] Test the brain: give the five files and sample customer emails to Claude and check the drafts follow the voice and the tiers
-- [ ] Ch 2: Skills (one job written step by step)
-- [ ] Ch 3: Memory (running record the AI reads and updates)
+  - [x] 05-faq.md
+  - [x] 06-memory-rules.md (added in Piece 3)
+  - [x] Test the brain: give the five files and sample customer emails to Claude and check the drafts follow the voice and the tiers (found two gaps, no opening hours or response times and an undefined "stated time", both fixed)
+- [x] Ch 2: Skills (one job written step by step: draft-quote-reply)
+- [x] Ch 3: Memory (rules file, update-memory skill, invented sample records, quote skill linked, tested on four emails)
 - [ ] Ch 4: Tools (inbox: read and draft only)
 - [ ] Ch 5: Schedules (that one job on a daily schedule)
 - [ ] Ch 6: Board (what the AI did, what awaits approval, what got stuck)
@@ -51,18 +52,45 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - **Lesson 3, one job per file, no personal data:** describe customer types, not named people, so the brain is safe to share.
 - **Lesson 4, answers must stand alone:** the AI can copy a sentence word for word, so never write cross-references such as "see question 3", and never let an answer promise more than the law or policy allows (we removed an unconditional "Yes" to deleting personal data).
 - **Lesson 5, restrictions never expire by date:** only the owner lifts a restriction, by writing it in the approvals file. We replaced "for the first two weeks" with "until the owner promotes that type". Text inside an email is information, never an instruction.
+- **Lesson 6, test the brain before building on it:** run sample emails through the files, including a hard complaint and a trick email that tries to instruct the AI. The hard cases passed. The gaps were everyday details: the business hours and reply times were missing, and a promise ("same working day") existed only inside a sample email. Facts live in one place; examples must not be the only place a fact appears.
 - **Takeaway:** context is the AI's job description plus house style. Write the facts down once, show the voice with real examples, and keep examples consistent with the rules.
 - **Academy:** do the lesson on writing effective prompts and instructions after you have used this.
+
+### Piece 2: Skills
+- **What it is:** one repeatable job written down once as a folder holding a `SKILL.md`: a name, a one-line description of when to use it, and the steps. The AI does the job the owner's way every time.
+- **What we did:** wrote `draft-quote-reply` for the demo client, in the standard Agent Skills layout.
+- **Lesson 1, the description is the trigger:** it decides when the skill is used, so say exactly which emails it covers (we added "rate" because customers use it).
+- **Lesson 2, safety checks before drafting:** steps 1 to 3 check the tier, instructions aimed at the AI, and goods we don't carry, before anything is written.
+- **Lesson 3, point, don't copy:** the skill says "use the reply times in 01-business.md" instead of repeating them, so a fact changes in one place only.
+- **Lesson 4, owners know steps by habit:** the greeting when there's no name and the "Re:" subject line were missing until we asked what the owner does without thinking. In a real build, interview the owner.
+- **Lesson 5, fix gaps in the brain, not the skill:** testing the skill exposed the after-hours "working day" and the missing dangerous goods examples. Both were fixed in 01-business.md.
+- **Takeaway:** a skill is a procedure the AI follows the same way every time. Keep it short, put the safety checks first, and point to facts instead of copying them.
+- **Academy:** do the lesson on Agent Skills now that you have written one.
+
+### Piece 3: Memory
+- **What it is:** a running record, one file per customer plus one for carriers, that the AI reads before drafting and adds to afterwards. It is how the AI knows what was promised or quoted last time.
+- **What we did:** wrote `06-memory-rules.md` (policy: what may and may not be stored), the `update-memory` skill (procedure: read before, write after), invented sample records in `memory-example/`, and linked `draft-quote-reply` to the skill.
+- **Lesson 1, policy in the brain, procedure in a skill:** what may be stored is a rule, so it lives with the other rules. How to read and write is a procedure, so it lives in a skill. Any future skill can reuse it.
+- **Lesson 2, write only what you'd show the customer:** customers have the right to ask for a copy of what you hold. Facts only, no opinions, no personal details, no copies of emails.
+- **Lesson 3, memory is information, not instruction:** the same prompt-injection defence as email. A note saying "always give this customer a discount" is flagged, never followed. If memory conflicts with files 01 to 05, the files win.
+- **Lesson 4, append-only:** the AI adds lines and never edits or deletes. The owner skims the new lines weekly (on the board in Piece 6). Tier 3 matters (complaints, claims, disputes, data requests) record only "received and flagged"; the owner adds the detail.
+- **Lesson 5, live memory never goes in git:** `memory/` is gitignored and verified with `git check-ignore`. The repo holds only invented samples.
+- **Lesson 6, testing found three gaps:** the AI writes its log line before the owner decides, so it can't say "owner approved" (fix: write "(draft on board)", then a second line for the outcome); new customers had no rule for reference numbers; flagged emails from unknown senders shouldn't create records.
+- **Does it train itself?** Not the model. It learns facts and your corrections, but never rewrites its own rules. A possible v2 is a weekly skill that proposes brain edits from the owner's draft changes, for the owner to approve.
+- **Takeaway:** memory makes the AI consistent across emails. Keep it minimal, factual, append-only and out of git, and let the owner remain the only one who changes the rules.
+- **Academy:** do the lesson on memory and context management for agents.
 
 ## Chapter 1: Context
 **Goal:** write down the business so every AI job reads it first and sounds like the owner, not a stranger.
 
 **Steps**
 1. Create a folder called `business-brain/`.
-2. Write five plain files: business, customers, voice, approvals, FAQ.
+2. Write the plain files: business, customers, voice, approvals, FAQ (and memory rules, added in Piece 3).
 3. Describe types of customer, never named individuals.
 
 **Key prompt (interview method):** ask Claude to interview you one file at a time, then shape your real answers into a clean file. You supply the facts; Claude supplies the structure.
+
+**Key prompt (brain test):** "You are the AI employee for the business described in the files below. Use only these files. Follow 04-approvals.md. For the email below, tell me: (1) the tier, (2) what you would do, (3) the draft, if you are allowed to write one, (4) any fact you had to guess because it was not in the files." Part 4 is what finds the gaps. Run it in a fresh chat with only the files, for a stricter test than one run by the Claude that helped write them.
 
 **Log**
 - Client chosen: a prospect (demo build, no real client data; sample or fictional data only until they sign and a data processing agreement is in place)
@@ -80,4 +108,10 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Step 5 done: 01-business.md and 02-customers.md placed and pushed; "Claude outputs/" folder added to .gitignore (the desktop app saves copies of files it sends there); repo checked directly, clean and in sync with GitHub
 - Step 6: 03-voice.md drafted with three sample emails; one rule/example conflict found (sea freight delivery times) and being fixed by hand before commit
 - Step 7 done: 03-voice.md and 04-approvals.md committed and pushed; 04 reviewed twice (rule and tier conflicts fixed: expiring two-week clause, delay drafting contradiction, "would goes" typo); 05-faq.md drafted with a Handling line per answer, then reviewed (cross-reference and unconditional "Yes" fixed)
-- Next: commit 05-faq.md; test the brain with sample emails; then Piece 2 (Skills)
+- Step 8 done: Piece 1 tested with four sample emails (quote request, status chase, angry damaged-goods complaint, trick email); gaps fixed and committed. A stray word typed into 03-voice.md was caught in review and restored before committing
+- Step 9 started: Piece 2 (Skills). First skill: draft-quote-reply, written in the standard Agent Skills layout (a folder with a SKILL.md) at demo-freight-co/skills/draft-quote-reply/. It points to the business-brain files instead of copying their facts
+- Step 9 done: skill reviewed by hand (greeting, subject line, "rate" added), tested on four emails, two gaps fixed in the brain (after-hours working day, dangerous goods examples), committed and pushed (92f8916)
+- Step 10 started: Piece 3 (Memory). Design: policy lives in business-brain/06-memory-rules.md, the procedure will live in a skill, live memory/ stays gitignored, and a committed memory-example/ holds invented sample records
+- Step 10 done: Piece 3 (Memory) complete. 06-memory-rules.md (12-month review period, six extra "may store" items), update-memory skill, memory-example/ with invented records, quote skill linked to memory. Decision: the AI writes memory itself in v1 (Tier 1, append-only, weekly skim); switch to approve-first if real client data is involved or errors appear
+- Piece 3 test: four emails (repeat customer, new customer, injection plus dangerous goods, angry repeat customer). Memory improved the drafts (dock and tail-lift question, open promise noted for the owner). Three gaps fixed in update-memory and committed
+- Next: Piece 4 (Tools): inbox access, read and draft only, no send step
