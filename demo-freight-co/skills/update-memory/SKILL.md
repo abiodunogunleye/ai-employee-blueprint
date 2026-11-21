@@ -60,6 +60,7 @@ Use this layout:
 # <Company name>
 Reference: <customer reference>
 Main contact: <first name only>
+Email domain: <the part after @ in their email address>
 Account status: <approved, 30-day terms | pays upfront | not yet
 confirmed by the owner>
 

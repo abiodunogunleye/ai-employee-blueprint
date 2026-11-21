@@ -5,6 +5,7 @@
 
 Reference: C-0001
 Main contact: Priya
+Email domain: sample-importer.example
 Account status: approved, 30-day terms (confirmed by owner)
 
 ## Preferences and details

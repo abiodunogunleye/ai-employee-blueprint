@@ -20,8 +20,8 @@ Asia. We are not a carrier: we arrange and manage the move.
 - Every shipment is quoted individually. We never give a firm
   price from a general enquiry.
 - A quote needs: collection and delivery addresses, cargo type,
-  weight, dimensions, number of pallets or packages, and the
-  date it needs to arrive.
+  whether anything is fragile, weight, dimensions, number of
+  pallets or packages, and the date it needs to arrive.
 - Customs declaration: flat fee of £35 per declaration.
 - Quotes are valid for 7 days.
 - Payment terms: 30 days for approved accounts, payment upfront

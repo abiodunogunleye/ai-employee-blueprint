@@ -5,6 +5,7 @@
 
 Reference: C-0002
 Main contact: Marcus
+Email domain: sample-wholesale.example
 Account status: not yet confirmed by the owner
 
 ## Preferences and details

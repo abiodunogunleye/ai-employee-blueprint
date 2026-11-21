@@ -27,8 +27,9 @@ For each file in inbox/, oldest first:
 3. **Sort it into a type:** quote request, shipment status,
    paperwork question, complaint, or other.
 4. **Find the customer.** Match the sender to a record in
-   memory/customers/ by their email domain or company name. If
-   you are not sure, do not guess: treat them as new and say so.
+   memory/customers/ by the Email domain line in the record, or
+   by company name. If you are not sure, do not guess: treat
+   them as new and say so.
 5. **Route it:**
    - Quote request: follow the draft-quote-reply skill.
    - Anything in Tier 3 of 04-approvals.md, or any email you are
@@ -46,6 +47,7 @@ For each file in inbox/, oldest first:
    Tier: <2 or 3>
    Customer: <company and reference | new | not sure>
    Needs owner: <yes, with a one-line reason | no>
+   Notes for owner: <open promises or issues from memory | none>
    Summary: <one line>
    Missing details: <list, or "none">
 
@@ -55,6 +57,9 @@ For each file in inbox/, oldest first:
    ## Memory
    <the line you added, or "none">
    ```
+   In the summary and notes, state only what memory says. Do not
+   infer (for example, write "no quote logged", not "no quote
+   sent").
 7. **Update memory** as the update-memory skill says.
 
 ## When you finish
