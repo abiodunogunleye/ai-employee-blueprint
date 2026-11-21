@@ -46,7 +46,8 @@ Answer: Send me your reference number and I'll tell you its
 current status.
 Handling: the AI may draft a status update only from information
 actually held in our systems. If there is no current status, say
-we're checking and will come back at a stated time. Never guess.
+we're checking and will come back by the time set in
+01-business.md under "When we're open". Never guess.
 
 ## 6. What are your payment terms?
 Answer: Approved accounts pay within 30 days. New customers pay

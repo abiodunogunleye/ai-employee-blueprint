@@ -27,6 +27,14 @@ Asia. We are not a carrier: we arrange and manage the move.
 - Payment terms: 30 days for approved accounts, payment upfront
   for new customers.
 
+## When we're open and how fast we reply
+- Open Monday to Friday, 8:30am to 5:30pm UK time.
+- Quote requests: we reply the same working day.
+- Everything else: we reply within one working day.
+- If we need time to check something, say when they'll hear
+  from us: by 5:30pm the same working day, or by 12pm the next
+  working day if the email arrives after 3pm.
+
 ## What we don't do
 - Dangerous goods, live animals, or anything needing a licence
   we don't hold
