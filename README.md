@@ -14,7 +14,7 @@ A reusable template for building an AI employee for any business. It is built fr
 ## How to start a new client
 
 1. Copy `_template/` to a new folder named after the client.
-2. Fill in the five files in `business-brain/`.
+2. Fill in the six files in `business-brain/`.
 3. Add skills to the `skills/` folder.
 4. Never put real customer data or secrets in the repo.
 
