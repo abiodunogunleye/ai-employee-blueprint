@@ -1,0 +1,19 @@
+# Secrets and credentials
+.env
+.env.*
+*.key
+*.pem
+*credentials*
+*secret*
+
+# Memory folders: ignore contents, keep the folders via .gitkeep
+**/memory/*
+!**/memory/.gitkeep
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS and editor junk
+.DS_Store
+Thumbs.db
+node_modules/
