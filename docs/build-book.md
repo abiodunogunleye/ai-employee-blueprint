@@ -22,7 +22,7 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - [x] Ch 5: Schedules (process-inbox on a weekday schedule, with unattended-run rules and a run log; production version is n8n on a VPS)
 - [x] Ch 6: Board (read-only HTML dashboard generated from files: needs you, drafts awaiting approval, memory skim, run health)
 - [ ] Two-week run, fix what breaks, add the next job
-- [ ] GitHub: private repo first, then mark as a template repository and make public once checked (no secrets, no real customer data)
+- [x] GitHub: private repo first, then mark as a template repository and make public once checked (no secrets, no real customer data)
 - [ ] Slide deck: one slide per piece (goal, steps, key prompt, takeaway), built from this book
 
 ## Project goals
@@ -157,4 +157,7 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Step 12 done: Piece 5 (Schedules), option A. Added "When run on a schedule" rules to process-inbox, created the scheduled task (Mon to Fri 07:46 UK), test-fired it: one "no new emails" run log line, nothing else changed. Open items: the task has connectors attached that cannot be removed per task, and it runs in automatic approval mode. Both accepted for demo data only
 - Decision: production schedule is option B (n8n on the VPS), built at the two-week run
 - Step 13 done: Piece 6 (Board). Read-only HTML dashboard generated from files (needs you, drafts awaiting approval, memory skim, recent runs, schedule health). Escaping tested with a hostile entry; light and dark checked; output gitignored. All six pieces of v1 now built on the shorter route
-- Next: sync README and book, then a clean-clone check of the repo, mark it as a template, review for secrets, then the two-week run (live inbox via n8n), then the slide deck
+- Step 14 done: template synced to the worked example (_template matches demo-freight-co), README and book updated, clean-clone test passed
+- Step 15 done: secrets and real-data review of all 24 commits on all branches (read-only). No keys, tokens, passwords, phone numbers, personal paths or infrastructure details; only the GitHub noreply address and invented .example addresses; live memory/, inbox/ and board/ never committed. MIT licence added, repo marked as a template and made public (22 Nov 2026)
+- Video: 90-second LinkedIn cut and the full YouTube script prepared; the scene system lives outside this repo. Audience is employers and collaborators, in a frank practitioner voice
+- Next: confirm the first Monday 07:46 scheduled run left a run-log line, then the two-week run with a live inbox via n8n on the VPS (a spare test mailbox, read and draft only, no send node)
