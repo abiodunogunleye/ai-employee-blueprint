@@ -20,7 +20,7 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - [x] Ch 3: Memory (rules file, update-memory skill, invented sample records, quote skill linked, tested on four emails)
 - [x] Ch 4: Tools (v1 shorter route: sample inbox folder in, board folder out, no send tool; live Gmail via n8n deferred to the two-week run)
 - [x] Ch 5: Schedules (process-inbox on a weekday schedule, with unattended-run rules and a run log; production version is n8n on a VPS)
-- [ ] Ch 6: Board (what the AI did, what awaits approval, what got stuck)
+- [x] Ch 6: Board (read-only HTML dashboard generated from files: needs you, drafts awaiting approval, memory skim, run health)
 - [ ] Two-week run, fix what breaks, add the next job
 - [ ] GitHub: private repo first, then mark as a template repository and make public once checked (no secrets, no real customer data)
 - [ ] Slide deck: one slide per piece (goal, steps, key prompt, takeaway), built from this book
@@ -105,6 +105,19 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - **Takeaway:** write the rules for an unattended run before you schedule it, make every run leave a trace, and test with one manual fire before you trust the clock.
 - **Academy:** do the lesson on running agents autonomously and monitoring them.
 
+### Piece 6: Board
+- **What it is:** the owner's one place to see what the AI did, what awaits approval, what got stuck and when it last ran. It is what makes "the AI drafts, a human decides" usable every day.
+- **What we did:** a small Python script (`dashboard/build_dashboard.py`, standard library only) reads `board/`, `memory/` and the run log and writes one HTML page, `board/dashboard.html`. Chosen over a Google Sheet because it needs no account, no upload and no third party.
+- **Lesson 1, the board is read-only:** no buttons to send, approve or edit. Approval stays with the owner, outside the AI's reach.
+- **Lesson 2, data in the page is untrusted:** email text ends up on the dashboard, so every value is HTML-escaped. We tested with a hostile entry (a script tag, an `onerror` image, a `fetch` to an outside site). All came out as inert text.
+- **Lesson 3, no scripts and no outside loads:** a content policy in the page blocks both, so it works offline and leaks nothing.
+- **Lesson 4, generated output stays out of git:** the page holds customer information, so it is written inside `board/`, which is gitignored. Only the generator is committed.
+- **Lesson 5, show the health of the machine, not just its work:** a "Schedule OK / warning" tile compares the last run log line with the last working day's 07:46 run. Silence becomes visible.
+- **Lesson 6, design for the weekly skim:** the page lists new memory lines from the last 7 days, which is how the owner supervises an AI that writes memory on its own.
+- **Lesson 7, check the page by looking at it:** light and dark were checked as screenshots, and the layout fix (a tile wrapping onto its own row) was found that way.
+- **Takeaway:** the board is the owner's control panel. Put what needs a decision first, show whether the machinery is running, and never let it do anything but show.
+- **Academy:** do the lesson on human-in-the-loop design and monitoring agents.
+
 ## Chapter 1: Context
 **Goal:** write down the business so every AI job reads it first and sounds like the owner, not a stranger.
 
@@ -143,4 +156,5 @@ Principle throughout: UK GDPR by default (no personal data in the business brain
 - Decision: v1 uses the shorter route (sample emails, no live inbox). The live n8n and Gmail connection comes at the two-week run, with read and draft only
 - Step 12 done: Piece 5 (Schedules), option A. Added "When run on a schedule" rules to process-inbox, created the scheduled task (Mon to Fri 07:46 UK), test-fired it: one "no new emails" run log line, nothing else changed. Open items: the task has connectors attached that cannot be removed per task, and it runs in automatic approval mode. Both accepted for demo data only
 - Decision: production schedule is option B (n8n on the VPS), built at the two-week run
-- Next: Piece 6 (Board): one place showing what the AI did, what awaits approval, what got stuck, and when it last ran
+- Step 13 done: Piece 6 (Board). Read-only HTML dashboard generated from files (needs you, drafts awaiting approval, memory skim, recent runs, schedule health). Escaping tested with a hostile entry; light and dark checked; output gitignored. All six pieces of v1 now built on the shorter route
+- Next: sync README and book, then a clean-clone check of the repo, mark it as a template, review for secrets, then the two-week run (live inbox via n8n), then the slide deck

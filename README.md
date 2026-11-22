@@ -14,9 +14,10 @@ A reusable template for building an AI employee for any business. It is built fr
 ## How to start a new client
 
 1. Copy `_template/` to a new folder named after the client.
-2. Fill in the six files in `business-brain/`.
-3. Add skills to the `skills/` folder.
-4. Never put real customer data or secrets in the repo.
+2. Fill in the six files in `business-brain/` by interviewing the owner.
+3. Write the first skill from `skills/_skill-template/`, then replace the placeholders in `skills/process-inbox/` and `skills/update-memory/` with the client's own email types and routing.
+4. Test with four invented emails in `inbox/`, then add the schedule and the board (`dashboard/build_dashboard.py`).
+5. Never put real customer data or secrets in the repo.
 
 ## Security rules
 
@@ -30,4 +31,4 @@ A reusable template for building an AI employee for any business. It is built fr
 
 ## Status
 
-Version 1 works end to end on invented demo data. `demo-freight-co` is the worked example: a business brain, three skills (draft a quote reply, update memory, process the inbox), a memory folder, a scheduled run, and a read-only board dashboard. The `_template/` folder is being brought up to match, so it is not yet a complete starting point.
+Version 1 works end to end on invented demo data. `demo-freight-co` is the worked example: a business brain, three skills (draft a quote reply, update memory, process the inbox), a memory folder, a scheduled run, and a read-only board dashboard. The `_template/` folder now matches it, with placeholders instead of demo details.
